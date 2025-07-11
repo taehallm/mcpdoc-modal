@@ -1,7 +1,7 @@
 [project]
-name = "mcpdoc"
-version = "0.0.9"
-description = "Server llms-txt documentation over MCP"
+name = "modal-mcpdoc"
+version = "0.1.0"
+description = "MCP server for Modal Cloud documentation"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
@@ -13,7 +13,10 @@ dependencies = [
 ]
 
 [project.scripts]
-mcpdoc = "mcpdoc.cli:main"
+modal-mcpdoc = "mcpdoc.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mcpdoc"]
 
 [dependency-groups]
 test = [

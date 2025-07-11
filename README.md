@@ -1,4 +1,4 @@
-# MCP LLMS-TXT Documentation Server
+# MCP Modal Documentation Server
 
 ## Overview
 
@@ -8,16 +8,13 @@
 
 <img src="https://github.com/user-attachments/assets/736f8f55-833d-4200-b833-5fca01a09e1b" width="60%">
 
-## llms-txt
+## Modal Cloud Documentation
 
-You can find llms.txt files for langgraph and langchain here:
+Modal Cloud provides comprehensive documentation through their llms.txt file:
 
-| Library          | llms.txt                                                                                                   |
-|------------------|------------------------------------------------------------------------------------------------------------|
-| LangGraph Python | [https://langchain-ai.github.io/langgraph/llms.txt](https://langchain-ai.github.io/langgraph/llms.txt)     |
-| LangGraph JS     | [https://langchain-ai.github.io/langgraphjs/llms.txt](https://langchain-ai.github.io/langgraphjs/llms.txt) |
-| LangChain Python | [https://python.langchain.com/llms.txt](https://python.langchain.com/llms.txt)                             |
-| LangChain JS     | [https://js.langchain.com/llms.txt](https://js.langchain.com/llms.txt)                                     |
+| Service     | llms.txt                                                    |
+|-------------|-------------------------------------------------------------|
+| Modal Cloud | [https://modal.com/llms.txt](https://modal.com/llms.txt)   |
 
 ## Quickstart
 
@@ -28,14 +25,14 @@ You can find llms.txt files for langgraph and langchain here:
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-#### Choose an `llms.txt` file to use. 
-* For example, [here's](https://langchain-ai.github.io/langgraph/llms.txt) the LangGraph `llms.txt` file.
+#### Modal Cloud Documentation
+* Modal Cloud provides their documentation index at [https://modal.com/llms.txt](https://modal.com/llms.txt).
 
 > **Note: Security and Domain Access Control**
 > 
-> For security reasons, mcpdoc implements strict domain access controls:
+> For security reasons, modal-mcpdoc implements strict domain access controls:
 > 
-> 1. **Remote llms.txt files**: When you specify a remote llms.txt URL (e.g., `https://langchain-ai.github.io/langgraph/llms.txt`), mcpdoc automatically adds only that specific domain (`langchain-ai.github.io`) to the allowed domains list. This means the tool can only fetch documentation from URLs on that domain.
+> 1. **Remote llms.txt files**: When you specify a remote llms.txt URL (e.g., `https://modal.com/llms.txt`), modal-mcpdoc automatically adds only that specific domain (`modal.com`) to the allowed domains list. This means the tool can only fetch documentation from URLs on that domain.
 > 
 > 2. **Local llms.txt files**: When using a local file, NO domains are automatically added to the allowed list. You MUST explicitly specify which domains to allow using the `--allowed-domains` parameter.
 > 
@@ -47,8 +44,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 
 #### (Optional) Test the MCP server locally with your `llms.txt` file(s) of choice:
 ```bash
-uvx --from mcpdoc mcpdoc \
-    --urls "LangGraph:https://langchain-ai.github.io/langgraph/llms.txt" "LangChain:https://python.langchain.com/llms.txt" \
+uvx --from modal-mcpdoc modal-mcpdoc \
+    --urls "Modal:https://modal.com/llms.txt" \
     --transport sse \
     --port 8082 \
     --host localhost
@@ -74,19 +71,19 @@ npx @modelcontextprotocol/inspector
 
 ![Screenshot 2025-03-19 at 11 01 31 AM](https://github.com/user-attachments/assets/3d1c8eb3-4d40-487f-8bad-3f9e660f770a)
 
-* Paste the following into the file (we use the `langgraph-docs-mcp` name and link to the LangGraph `llms.txt`).
+* Paste the following into the file (we use the `modal-docs-mcp` name and link to the Modal `llms.txt`).
 
 ```
 {
   "mcpServers": {
-    "langgraph-docs-mcp": {
+    "modal-docs-mcp": {
       "command": "uvx",
       "args": [
         "--from",
-        "mcpdoc",
-        "mcpdoc",
+        "modal-mcpdoc",
+        "modal-mcpdoc",
         "--urls",
-        "LangGraph:https://langchain-ai.github.io/langgraph/llms.txt LangChain:https://python.langchain.com/llms.txt",
+        "Modal:https://modal.com/llms.txt",
         "--transport",
         "stdio"
       ]
@@ -100,7 +97,7 @@ npx @modelcontextprotocol/inspector
 * Open Cursor `Settings/Rules` and update `User Rules` with the following (or similar):
 
 ```
-for ANY question about LangGraph, use the langgraph-docs-mcp server to help answer -- 
+for ANY question about Modal Cloud, use the modal-docs-mcp server to help answer -- 
 + call list_doc_sources tool to get the available llms.txt file
 + call fetch_docs tool to read it
 + reflect on the urls in llms.txt 
@@ -116,7 +113,7 @@ for ANY question about LangGraph, use the langgraph-docs-mcp server to help answ
 
 Then, try an example prompt, such as:
 ```
-what are types of memory in LangGraph?
+how do I create a Modal function?
 ```
 
 ![Screenshot 2025-03-18 at 1 58 38 PM](https://github.com/user-attachments/assets/180966b5-ab03-4b78-8b5d-bab43f5954ed)
@@ -125,14 +122,14 @@ what are types of memory in LangGraph?
 
 * Open Cascade with `CMD+L` (on Mac).
 * Click `Configure MCP` to open the config file, `~/.codeium/windsurf/mcp_config.json`.
-* Update with `langgraph-docs-mcp` as noted above.
+* Update with `modal-docs-mcp` as noted above.
 
 ![Screenshot 2025-03-19 at 11 02 52 AM](https://github.com/user-attachments/assets/d45b427c-1c1e-4602-820a-7161a310af24)
 
 * Update `Windsurf Rules/Global rules` with the following (or similar):
 
 ```
-for ANY question about LangGraph, use the langgraph-docs-mcp server to help answer -- 
+for ANY question about Modal Cloud, use the modal-docs-mcp server to help answer -- 
 + call list_doc_sources tool to get the available llms.txt file
 + call fetch_docs tool to read it
 + reflect on the urls in llms.txt 
@@ -150,7 +147,7 @@ Then, try the example prompt:
 ### Connect to Claude Desktop
 
 * Open `Settings/Developer` to update `~/Library/Application\ Support/Claude/claude_desktop_config.json`.
-* Update with `langgraph-docs-mcp` as noted above.
+* Update with `modal-docs-mcp` as noted above.
 * Restart Claude Desktop app.
 
 > [!Note]
@@ -162,16 +159,16 @@ Then, try the example prompt:
 > ```
 > {
 >   "mcpServers": {
->     "langgraph-docs-mcp": {
+>     "modal-docs-mcp": {
 >       "command": "uvx",
 >       "args": [
 >         "--python",
 >         "/path/to/python",
 >         "--from",
->         "mcpdoc",
->         "mcpdoc",
+>         "modal-mcpdoc",
+>         "modal-mcpdoc",
 >         "--urls",
->         "LangGraph:https://langchain-ai.github.io/langgraph/llms.txt",
+>         "Modal:https://modal.com/llms.txt",
 >         "--transport",
 >         "stdio"
 >       ]
@@ -186,7 +183,7 @@ Then, try the example prompt:
 
 ```
 <rules>
-for ANY question about LangGraph, use the langgraph-docs-mcp server to help answer -- 
+for ANY question about Modal Cloud, use the modal-docs-mcp server to help answer -- 
 + call list_doc_sources tool to get the available llms.txt file
 + call fetch_docs tool to read it
 + reflect on the urls in llms.txt 
@@ -211,7 +208,7 @@ Then, try the example prompt:
 
 * In a terminal after installing [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview), run this command to add the MCP server to your project:
 ```
-claude mcp add-json langgraph-docs '{"type":"stdio","command":"uvx" ,"args":["--from", "mcpdoc", "mcpdoc", "--urls", "langgraph:https://langchain-ai.github.io/langgraph/llms.txt", "LangChain:https://python.langchain.com/llms.txt"]}' -s local
+claude mcp add-json modal-docs '{"type":"stdio","command":"uvx" ,"args":["--from", "modal-mcpdoc", "modal-mcpdoc", "--urls", "Modal:https://modal.com/llms.txt"]}' -s local
 ```
 * You will see `~/.claude.json` updated.
 * Test by launching Claude Code and running to view your tools:
@@ -227,7 +224,7 @@ $ /mcp
 
 ```
 <rules>
-for ANY question about LangGraph, use the langgraph-docs-mcp server to help answer -- 
+for ANY question about Modal Cloud, use the modal-docs-mcp server to help answer -- 
 + call list_doc_sources tool to get the available llms.txt file
 + call fetch_docs tool to read it
 + reflect on the urls in llms.txt 
@@ -244,24 +241,24 @@ Then, try the example prompt:
 
 ## Command-line Interface
 
-The `mcpdoc` command provides a simple CLI for launching the documentation server. 
+The `modal-mcpdoc` command provides a simple CLI for launching the documentation server. 
 
 You can specify documentation sources in three ways, and these can be combined:
 
 1. Using a YAML config file:
 
-* This will load the LangGraph Python documentation from the `sample_config.yaml` file in this repo.
+* This will load the Modal Cloud documentation from the `sample_config.yaml` file in this repo.
 
 ```bash
-mcpdoc --yaml sample_config.yaml
+modal-mcpdoc --yaml sample_config.yaml
 ```
 
 2. Using a JSON config file:
 
-* This will load the LangGraph Python documentation from the `sample_config.json` file in this repo.
+* This will load the Modal Cloud documentation from the `sample_config.json` file in this repo.
 
 ```bash
-mcpdoc --json sample_config.json
+modal-mcpdoc --json sample_config.json
 ```
 
 3. Directly specifying llms.txt URLs with optional names:
@@ -271,13 +268,13 @@ mcpdoc --json sample_config.json
 * This is how we loaded `llms.txt` for the MCP server above.
 
 ```bash
-mcpdoc --urls LangGraph:https://langchain-ai.github.io/langgraph/llms.txt --urls LangChain:https://python.langchain.com/llms.txt
+modal-mcpdoc --urls Modal:https://modal.com/llms.txt
 ```
 
 You can also combine these methods to merge documentation sources:
 
 ```bash
-mcpdoc --yaml sample_config.yaml --json sample_config.json --urls LangGraph:https://langchain-ai.github.io/langgraph/llms.txt --urls LangChain:https://python.langchain.com/llms.txt
+modal-mcpdoc --yaml sample_config.yaml --json sample_config.json --urls Modal:https://modal.com/llms.txt
 ```
 
 ## Additional Options
@@ -288,10 +285,10 @@ mcpdoc --yaml sample_config.yaml --json sample_config.json --urls LangGraph:http
 Example with additional options:
 
 ```bash
-mcpdoc --yaml sample_config.yaml --follow-redirects --timeout 15
+modal-mcpdoc --yaml sample_config.yaml --follow-redirects --timeout 15
 ```
 
-This will load the LangGraph Python documentation with a 15-second timeout and follow any HTTP redirects if necessary.
+This will load the Modal Cloud documentation with a 15-second timeout and follow any HTTP redirects if necessary.
 
 ## Configuration Format
 
@@ -302,10 +299,10 @@ Each source must include an `llms_txt` URL and can optionally include a `name`:
 ### YAML Configuration Example (sample_config.yaml)
 
 ```yaml
-# Sample configuration for mcp-mcpdoc server
+# Sample configuration for modal-mcpdoc server
 # Each entry must have a llms_txt URL and optionally a name
-- name: LangGraph Python
-  llms_txt: https://langchain-ai.github.io/langgraph/llms.txt
+- name: Modal Cloud
+  llms_txt: https://modal.com/llms.txt
 ```
 
 ### JSON Configuration Example (sample_config.json)
@@ -313,8 +310,8 @@ Each source must include an `llms_txt` URL and can optionally include a `name`:
 ```json
 [
   {
-    "name": "LangGraph Python",
-    "llms_txt": "https://langchain-ai.github.io/langgraph/llms.txt"
+    "name": "Modal Cloud",
+    "llms_txt": "https://modal.com/llms.txt"
   }
 ]
 ```
@@ -328,8 +325,8 @@ from mcpdoc.main import create_server
 server = create_server(
     [
         {
-            "name": "LangGraph Python",
-            "llms_txt": "https://langchain-ai.github.io/langgraph/llms.txt",
+            "name": "Modal Cloud",
+            "llms_txt": "https://modal.com/llms.txt",
         },
         # You can add multiple documentation sources
         # {

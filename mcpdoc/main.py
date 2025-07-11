@@ -162,7 +162,7 @@ def create_server(
     """
     settings = settings or {}
     server = FastMCP(
-        name="llms-txt",
+        name="modal-docs",
         instructions=_get_server_instructions(doc_sources),
         **settings,
     )

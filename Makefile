@@ -38,10 +38,7 @@ format format_diff:
 
 
 generate_examples:
-	uv run langgraph-gen examples/agentic_rag/spec.yml --language python
-	uv run langgraph-gen examples/agentic_rag/spec.yml --language typescript
-	uv run langgraph-gen examples/rag/spec.yml --language python
-	uv run langgraph-gen examples/rag/spec.yml --language typescript
+	@echo "No examples to generate for Modal documentation server"
 	
 
 ######################

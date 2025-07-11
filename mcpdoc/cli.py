@@ -23,34 +23,34 @@ class CustomFormatter(
 EPILOG = """
 Examples:
   # Directly specifying llms.txt URLs with optional names
-  mcpdoc --urls LangGraph:https://langchain-ai.github.io/langgraph/llms.txt
+  modal-mcpdoc --urls Modal:https://modal.com/llms.txt
   
   # Using a local file (absolute or relative path)
-  mcpdoc --urls LocalDocs:/path/to/llms.txt --allowed-domains '*'
+  modal-mcpdoc --urls LocalDocs:/path/to/llms.txt --allowed-domains '*'
   
   # Using a YAML config file
-  mcpdoc --yaml sample_config.yaml
+  modal-mcpdoc --yaml sample_config.yaml
 
   # Using a JSON config file
-  mcpdoc --json sample_config.json
+  modal-mcpdoc --json sample_config.json
 
   # Combining multiple documentation sources
-  mcpdoc --yaml sample_config.yaml --json sample_config.json --urls LangGraph:https://langchain-ai.github.io/langgraph/llms.txt
+  modal-mcpdoc --yaml sample_config.yaml --json sample_config.json --urls Modal:https://modal.com/llms.txt
 
   # Using SSE transport with default host (127.0.0.1) and port (8000)
-  mcpdoc --yaml sample_config.yaml --transport sse
+  modal-mcpdoc --yaml sample_config.yaml --transport sse
   
   # Using SSE transport with custom host and port
-  mcpdoc --yaml sample_config.yaml --transport sse --host 0.0.0.0 --port 9000
+  modal-mcpdoc --yaml sample_config.yaml --transport sse --host 0.0.0.0 --port 9000
   
   # Using SSE transport with additional HTTP options
-  mcpdoc --yaml sample_config.yaml --follow-redirects --timeout 15 --transport sse --host localhost --port 8080
+  modal-mcpdoc --yaml sample_config.yaml --follow-redirects --timeout 15 --transport sse --host localhost --port 8080
   
   # Allow fetching from additional domains. The domains hosting the llms.txt files are always allowed.
-  mcpdoc --yaml sample_config.yaml --allowed-domains https://example.com/ https://another-example.com/
+  modal-mcpdoc --yaml sample_config.yaml --allowed-domains https://example.com/ https://another-example.com/
   
   # Allow fetching from any domain
-  mcpdoc --yaml sample_config.yaml --allowed-domains '*'
+  modal-mcpdoc --yaml sample_config.yaml --allowed-domains '*'
 """
 
 
@@ -58,7 +58,7 @@ def parse_args() -> argparse.Namespace:
     """Parse command-line arguments."""
     # Custom formatter to preserve epilog formatting
     parser = argparse.ArgumentParser(
-        description="MCP LLMS-TXT Documentation Server",
+        description="MCP Modal Documentation Server",
         formatter_class=CustomFormatter,
         epilog=EPILOG,
     )
@@ -130,7 +130,7 @@ def parse_args() -> argparse.Namespace:
         "--version",
         "-V",
         action="version",
-        version=f"mcpdoc {__version__}",
+        version=f"modal-mcpdoc {__version__}",
         help="Show version information and exit",
     )
 
@@ -196,7 +196,7 @@ def main() -> None:
         # No arguments, print help
         # Use the same custom formatter as parse_args()
         help_parser = argparse.ArgumentParser(
-            description="MCP LLMS-TXT Documentation Server",
+            description="MCP Modal Documentation Server",
             formatter_class=CustomFormatter,
             epilog=EPILOG,
         )
@@ -205,7 +205,7 @@ def main() -> None:
             "--version",
             "-V",
             action="version",
-            version=f"mcpdoc {__version__}",
+            version=f"modal-mcpdoc {__version__}",
             help="Show version information and exit",
         )
         help_parser.print_help()
@@ -254,7 +254,7 @@ def main() -> None:
         print()
 
         print(
-            f"Launching MCPDOC server with {len(doc_sources)} doc sources",
+            f"Launching Modal MCPDOC server with {len(doc_sources)} doc sources",
         )
 
     # Pass transport-specific options

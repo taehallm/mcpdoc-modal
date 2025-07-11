@@ -1,4 +1,4 @@
-"""A server for just langgraph docs from langchain-ai.github.io.
+"""A server for just Modal Cloud docs from modal.com.
 
 This is used as a way to test the doc functionality via MCP.
 """
@@ -8,30 +8,30 @@ import httpx
 from markdownify import markdownify
 from mcp.server.fastmcp import FastMCP
 
-server = FastMCP(name="llms-txt")
+server = FastMCP(name="modal-docs")
 
-ALLOWED_PREFIX = "https://langchain-ai.github.io/"
+ALLOWED_PREFIX = "https://modal.com/"
 
 HTTPX_CLIENT = httpx.AsyncClient(follow_redirects=False)
 
 
 @server.tool()
 async def get_docs(url: str = "overview") -> str:
-    """Get langgraph docs.
+    """Get Modal Cloud docs.
 
     Always fetch the `overview` prior to fetching any other URLs as it will provide a
     list of available URLs.
 
     Args:
-        url: The URL to fetch. Must start with https://langchain-ai.github.io/
+        url: The URL to fetch. Must start with https://modal.com/
         or be "overview".
     """
     if url == "overview":
-        url = "https://langchain-ai.github.io/langgraph/llms.txt"
+        url = "https://modal.com/llms.txt"
 
     if not url.startswith(ALLOWED_PREFIX):
         return (
-            "Error: Invalid url. Must start with https://langchain-ai.github.io/ "
+            "Error: Invalid url. Must start with https://modal.com/ "
             'or be "overview"'
         )
 
