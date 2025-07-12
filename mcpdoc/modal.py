@@ -30,10 +30,7 @@ async def get_docs(url: str = "overview") -> str:
         url = "https://modal.com/llms.txt"
 
     if not url.startswith(ALLOWED_PREFIX):
-        return (
-            "Error: Invalid url. Must start with https://modal.com/ "
-            'or be "overview"'
-        )
+        return 'Error: Invalid url. Must start with https://modal.com/ or be "overview"'
 
     response = await HTTPX_CLIENT.get(url)
     response.raise_for_status()
